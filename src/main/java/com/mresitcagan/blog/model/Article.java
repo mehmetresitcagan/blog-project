@@ -2,6 +2,7 @@ package com.mresitcagan.blog.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,9 @@ import java.util.Date;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(name = "articles")
 public class Article {
 
     @Id
@@ -28,7 +32,7 @@ public class Article {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private User user;
 }
