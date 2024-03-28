@@ -27,7 +27,7 @@ public class ArticleController {
 
     @GetMapping
     public List<ArticleDto> getAllArticles() {
-        List<Article> articles = articleService.getAllArticles();
+        List<Article> articles = articleService.getAll();
         return articles.stream()
                 .map(mapper::mapTo)
                 .collect(Collectors.toList());
