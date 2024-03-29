@@ -1,15 +1,13 @@
 package com.mresitcagan.blog.mapper.impl;
 
-import com.mresitcagan.blog.dto.ArticleDto;
-import com.mresitcagan.blog.dto.UserDto;
-import com.mresitcagan.blog.model.Article;
-import com.mresitcagan.blog.model.User;
+import com.mresitcagan.blog.dto.AccountDto;
+import com.mresitcagan.blog.model.Account;
 import com.mresitcagan.blog.mapper.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserMapper implements Mapper<User, UserDto> {
+public class UserMapper implements Mapper<Account, AccountDto> {
 
     private ModelMapper modelMapper;
 
@@ -18,12 +16,12 @@ public class UserMapper implements Mapper<User, UserDto> {
     }
 
     @Override
-    public UserDto mapTo(User user) {
-        return modelMapper.map(user, UserDto.class);
+    public AccountDto mapTo(Account account) {
+        return modelMapper.map(account, AccountDto.class);
     }
 
     @Override
-    public User mapFrom(UserDto userDto) {
-        return modelMapper.map(userDto, User.class);
+    public Account mapFrom(AccountDto accountDto) {
+        return modelMapper.map(accountDto, Account.class);
     }
 }

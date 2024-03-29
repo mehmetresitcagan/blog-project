@@ -5,11 +5,9 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class ArticleDto {
+public class PostDto {
     private Long id;
     private String title;
-    private String content;
+    private String body;
     private Date createdAt;
-    private Date updatedAt;
-    private Long userId;
 }

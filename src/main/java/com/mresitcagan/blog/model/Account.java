@@ -8,17 +8,22 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "users")
-public class User {
+@NoArgsConstructor
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    private String username;
+    private String firstName;
+
+    private String lastName;
 
     private String password;
 
     private String email;
+
+    @OneToMany(mappedBy = "account")
+    private List<Post> posts;
 
 }

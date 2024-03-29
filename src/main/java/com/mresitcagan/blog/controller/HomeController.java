@@ -1,7 +1,7 @@
 package com.mresitcagan.blog.controller;
 
-import com.mresitcagan.blog.model.Article;
-import com.mresitcagan.blog.service.ArticleService;
+import com.mresitcagan.blog.model.Post;
+import com.mresitcagan.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,11 +13,11 @@ import java.util.List;
 public class HomeController {
 
     @Autowired
-    private ArticleService articleService;
+    private PostService postService;
 
     @GetMapping("/")
     public String home(Model model) {
-        List<Article> posts = articleService.getAll();
+        List<Post> posts = postService.getAll();
         model.addAttribute("posts", posts);
         return "home";
     }

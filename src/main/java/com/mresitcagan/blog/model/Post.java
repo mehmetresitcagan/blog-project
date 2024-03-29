@@ -2,15 +2,14 @@ package com.mresitcagan.blog.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "articles")
-public class Article {
+public class Post {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -22,4 +21,9 @@ public class Article {
     private String body;
 
     private LocalDateTime createdAt;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
+    private Account account;
 }
