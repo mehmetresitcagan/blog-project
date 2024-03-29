@@ -2,7 +2,9 @@ package com.mresitcagan.blog.controller;
 
 import com.mresitcagan.blog.dto.PostDto;
 import com.mresitcagan.blog.mapper.Mapper;
+import com.mresitcagan.blog.model.Account;
 import com.mresitcagan.blog.model.Post;
+import com.mresitcagan.blog.service.AccountService;
 import com.mresitcagan.blog.service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +21,14 @@ import java.util.stream.Collectors;
 public class PostController {
 
     private final PostService postService;
+
+    private final AccountService accountService;
+
     private final Mapper<Post, PostDto> mapper;
 
-    public PostController(PostService postService, Mapper<Post, PostDto> mapper) {
+    public PostController(PostService postService, AccountService accountService, Mapper<Post, PostDto> mapper) {
         this.postService = postService;
+        this.accountService = accountService;
         this.mapper = mapper;
     }
 
@@ -45,10 +51,24 @@ public class PostController {
         return "404";
     }
 
-    @PostMapping()
-    public ResponseEntity<PostDto> createArticle(@RequestBody PostDto postDto){
-        Post post = mapper.mapFrom(postDto);
-        Post savedPostEntity = postService.save(post);
-        return new ResponseEntity<>(mapper.mapTo(savedPostEntity), HttpStatus.CREATED);
+
+    @GetMapping("/new")
+    public String createNewPost(Model model){
+        Optional<Account> optionalAccount = accountService.findByEmail("mresitcagan@gmail.com");
+        if (optionalAccount.isPresent()){
+            Post post = new Post();
+            post.setAccount(optionalAccount.get());
+            model.addAttribute("post", post);
+            return "post_new";
+        } else {
+            return "404";
+        }
     }
+
+    @PostMapping("/new")
+    public String saveNewPost(@ModelAttribute Post post){
+        postService.save(post);
+        return "redirect:/posts/" + post.getId();
+    }
+
 }
