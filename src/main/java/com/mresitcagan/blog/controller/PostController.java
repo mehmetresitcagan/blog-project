@@ -56,7 +56,7 @@ public class PostController {
 
     @GetMapping("/new")
     public String createNewPost(Model model){
-        Optional<Account> optionalAccount = accountService.findByEmail("mresitcagan@gmail.com");
+        Optional<Account> optionalAccount = accountService.findByEmail("user.user@domain.com");
         if (optionalAccount.isPresent()){
             Post post = new Post();
             post.setAccount(optionalAccount.get());
@@ -104,6 +104,21 @@ public class PostController {
         }
 
         return "redirect:/posts/" + post.getId();
+    }
+
+    @GetMapping("/{id}/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String deletePost(@PathVariable Long id) {
+
+        Optional<Post> optionalPost = postService.getById(id);
+        if (optionalPost.isPresent()) {
+            Post post = optionalPost.get();
+
+            postService.delete(post);
+            return "redirect:/";
+        } else {
+            return "404";
+        }
     }
 
 }
