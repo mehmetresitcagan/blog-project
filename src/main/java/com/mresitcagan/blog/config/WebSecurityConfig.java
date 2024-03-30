@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
@@ -20,7 +21,11 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                // h2 console a bağlanmak için
+                .headers(x -> x.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .csrf(AbstractHttpConfigurer::disable)
+
+
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(antMatcher("/css/**")).permitAll();
                     auth.requestMatchers(antMatcher("/js/**")).permitAll();
@@ -36,7 +41,7 @@ public class WebSecurityConfig {
                 })
 
                 .formLogin(form -> form
-                        .loginPage("/login")
+                        .loginPage("/login")f
                         .loginProcessingUrl("/login")
                         .usernameParameter("email")
                         .passwordParameter("password")

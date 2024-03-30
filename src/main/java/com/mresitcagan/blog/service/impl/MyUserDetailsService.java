@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Component("userDetailsService")
 public class MyUserDetailsService implements UserDetailsService {
 
-    private AccountService accountService;
+    private final AccountService accountService;
 
     public MyUserDetailsService(AccountService accountService) {
         this.accountService = accountService;
@@ -36,6 +36,5 @@ public class MyUserDetailsService implements UserDetailsService {
                 .collect(Collectors.toList());
 
         return new org.springframework.security.core.userdetails.User(account.getEmail(), account.getPassword(), grantedAuthorities);
-        }
     }
 }
