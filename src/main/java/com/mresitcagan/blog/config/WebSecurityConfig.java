@@ -41,7 +41,7 @@ public class WebSecurityConfig {
                 })
 
                 .formLogin(form -> form
-                        .loginPage("/login")f
+                        .loginPage("/login")
                         .loginProcessingUrl("/login")
                         .usernameParameter("email")
                         .passwordParameter("password")
