@@ -17,13 +17,14 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping("/deneme")
-    public String deneme(){
-        return userService.getByUsername("mresitcagan").toString();
-    }
 
     @PostMapping("/addNewUser")
     public User addUser(@RequestBody CreateUserRequest request) {
         return userService.createUser(request);
+    }
+
+    @GetMapping("/admin")
+    public String getAdminString() {
+        return "This is ADMIN!";
     }
 }
